@@ -1,4 +1,4 @@
-//　テスト
+// コードを使うっていう宣言
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {onAuthStateChanged, signOut} from 'firebase/auth';
@@ -90,6 +90,7 @@ function BookingDrawer({ open, date, slots, onClose, onSubmit }) {
     }
   };
 
+  // 予約の最終確認→送信→結果処理
   const handleConfirmBooking = async () => {
     setLoading(true);
     setError('');
@@ -108,6 +109,7 @@ function BookingDrawer({ open, date, slots, onClose, onSubmit }) {
     }
   };
 
+  // 予約可能日時を選んで入力し、確認からの確定画面まで
   return (
     <div style={{
       position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.3)',
@@ -399,6 +401,7 @@ function App() {
     signOut(auth);
   };
 
+  // バックエンドAPIから予約データを取得して React の state に保存する処理
   const refreshBookings = async () => {
     try {
       console.log("予約データを取得中...");
@@ -418,6 +421,7 @@ function App() {
     }
   };
 
+  // ログイン状態（ユーザー情報）の変化を監視し、それに応じて予約データを更新する
   useEffect(() => {
     const unsubAuth = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
