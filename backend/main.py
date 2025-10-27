@@ -1,11 +1,11 @@
-from datetime import date, timedelta
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
+from datetime import date, datetime, timedelta
+from fastapi import FastAPI  # pyright: ignore[reportMissingImports]
+from fastapi.middleware.cors import CORSMiddleware  # pyright: ignore[reportMissingImports]
 from config import Config
 from database import bookings
 from services import generate_time_slots
 from routers import booking # booking.pyのルーターをインポート
+
 
 # FastAPIアプリケーションの初期化
 app = FastAPI(title="グランブルーファンタジーカフェ予約システム")

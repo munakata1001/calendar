@@ -1,5 +1,5 @@
 from typing import Dict, List, Any
-from pydantic import EmailStr
+from pydantic import EmailStr  # pyright: ignore[reportMissingImports]
 
 # ==============================================================================
 # IN-MEMORY DATABASE

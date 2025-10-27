@@ -1,8 +1,8 @@
 from datetime import datetime
-from fastapi import APIRouter, HTTPException
-
+from fastapi import APIRouter, HTTPException  # pyright: ignore[reportMissingImports]
 from models import Booking, UserEmail
 from database import bookings, user_bookings
+from config import Config
 from services import (
     validate_email,
     find_slot_by_id,
