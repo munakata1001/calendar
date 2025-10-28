@@ -1,7 +1,11 @@
 // コードを使うっていう宣言
-import React, {useState, useEffect} from 'react'; // この行を修正または追加
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {onAuthStateChanged, signOut} from 'firebase/auth';
+import {onAuthStateChanged} from 'firebase/auth';
+import {auth} from './firebase';
+import Login from './components/auth/Login';
+import SignUp from './components/auth/SignUp';
+import MyPage from './components/MyPage';
 import './App.css';
 import BookingDrawer from './components/BookingDrawer';
 import BookingStatus from './components/BookingStatus';
@@ -9,13 +13,9 @@ import { formatDateISO } from './utils/date';
 import sixDragonsImage from './assets/six_dragons.jpg';
 import CalendarGrid from './components/Calendar/CalendarGrid';
 import { fetchBookings, submitBooking } from './api/bookingAPI';
-import Header from './components/Header'; // これを追加
-import {auth} from './firebase';
-import Login from './components/auth/Login';
-import SignUp from './components/auth/SignUp';
-import MyPage from './components/MyPage'; // この行を追加または存在することを確認
-import './App.css';
-
+import Header from './components/Header';
+import Legend from './components/Legend';
+import CalendarHeader from './components/Calendar/CalendarHeader'; // これを追加
 
 function App() {
   const [user, setUser] = useState(null);
@@ -27,10 +27,7 @@ function App() {
   const [loginOpen, setLoginOpen] = useState(false);
   const [signUpOpen, setSignUpOpen] = useState(true);
   const [myPageOpen, setMyPageOpen] = useState(false);
-  const [currentMonth, setCurrentMonth] = useState(new Date()); // この行を追加または存在することを確認
-  const handleLogout = () => { // この関数を削除します (Header.jsxに移動したため)
-    signOut(auth);
-  };
+  const [currentMonth, setCurrentMonth] = useState(new Date());
 
   
   // バックエンドAPIから予約データを取得して React の state に保存する処理
@@ -148,56 +145,14 @@ function App() {
         setMyPageOpen={setMyPageOpen}
         refreshBookings={refreshBookings}
       />
+   {/* 凡例 */}
+   <Legend />
 
-      {/* 凡例 */}
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        gap: '20px', 
-        marginBottom: '20px',
-        padding: '10px',
-        background: '#f8f9fa',
-        borderRadius: '8px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <span style={{ color: '#28a745', fontSize: '20px', fontWeight: 'bold' }}>○</span>
-          <span>空きあり</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <span style={{ color: '#ffc107', fontSize: '20px', fontWeight: 'bold' }}>△</span>
-          <span>残りわずか</span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-          <span style={{ color: '#dc3545', fontSize: '20px', fontWeight: 'bold' }}>×</span>
-          <span>空きなし</span>
-        </div>
-      </div>
+{/* カレンダーヘッダー */}
+<CalendarHeader />
 
-      {/* カレンダーヘッダー */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(7, 1fr)', 
-        gap: '2px', 
-        marginBottom: '20px',
-        background: '#f8f9fa',
-        borderRadius: '8px'
-      }}>
-        {['日', '月', '火', '水', '木', '金', '土'].map(day => (
-          <div key={day} style={{ 
-            textAlign: 'center', 
-            fontWeight: 'bold', 
-            padding: '8px',
-            background: '#e9ecef',
-            borderRadius: '4px'
-          }}>
-            {day}
-          </div>
-        ))}
-      </div>
-
-      
-      {/* カレンダーグリッド */}
-      <CalendarGrid
+{/* カレンダーグリッド */}
+<CalendarGrid
         currentMonth={currentMonth}
         bookings={bookings}
         openDrawer={openDrawer}
