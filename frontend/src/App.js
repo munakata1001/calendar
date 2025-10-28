@@ -5,7 +5,7 @@ import {onAuthStateChanged} from 'firebase/auth';
 import {auth} from './firebase';
 import Login from './components/auth/Login';
 import SignUp from './components/auth/SignUp';
-import MyPage from './components/MyPage';
+import MyPage from './components/MyPage/MyPage'; // './components/MyPage' から変更
 import './App.css';
 import BookingDrawer from './components/BookingDrawer';
 import BookingStatus from './components/BookingStatus';
