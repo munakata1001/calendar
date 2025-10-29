@@ -1,5 +1,6 @@
 import React from 'react';
 
+// プロフィール内容表示関係
 const ProfileTab = ({ profileData, setProfileData, handleProfileUpdate, loading }) => {
   return (
     <div>
